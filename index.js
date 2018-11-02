@@ -4,6 +4,8 @@ const bot = new Discord.Client();
 const TOKEN = require('./auth.json').token
 const insults = require('./insults.json').insults
 
+
+
 var fs = require('fs');
 
 let min=0; 
@@ -64,6 +66,12 @@ bot.on('message', function(message){
 
 })
 
+http = require('http')
+handle = (req, res) => res.end("hit")
+
+server = http.createServer(handle)
+
+server.listen(process.env.PORT || 5000)
 
 
 
