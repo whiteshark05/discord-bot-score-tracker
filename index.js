@@ -1,7 +1,7 @@
 const fetch = require('node-fetch')
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-const TOKEN = require('./auth.json').token
+const TOKEN = require('./exclude/auth.json').token
 const insults = require('./insults.json').insults
 
 
