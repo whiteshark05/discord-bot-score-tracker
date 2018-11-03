@@ -24,8 +24,7 @@ bot.on('message', function(message){
     let dogeEmojiString = message.guild.emojis.filter(e => e.name.includes('doge')).map(e => e.toString()).join(" ")
     let dogeEmojiList = message.guild.emojis.filter(e => e.name.includes('doge')).map(e => e.toString())
     let random =Math.floor(Math.random() * (+max - +min)) + +min; 
-    console.log(dogeEmojiList)
-
+    
 
     if(message.content === 'Hello' || message.content === 'hello') message.reply('Hello, how are you?');
 
@@ -51,6 +50,10 @@ bot.on('message', function(message){
     //const emojiList = message.guild.emojis.map(e=>e.toString()).join(" ");
     message.channel.send(dogeEmojiString);}
 
+    if (message.content === "d!emo2") {
+
+        //const emojiList = message.guild.emojis.map(e=>e.toString()).join(" ");
+    dogeEmojiList.map(i => {message.channel.send(i)});}
 
 
     if(message.content === 'd!getscore'){
@@ -63,6 +66,16 @@ bot.on('message', function(message){
         obj.obj.table.map(item => {message.reply(item)});
         }}
     )}
+
+
+    if(message.content === 'd!runes'){
+        
+        message.channel.send('Runes bonuses', {
+            files: [
+                "./Runes.jpg"
+            ]
+        });
+    }
 
 })
 
