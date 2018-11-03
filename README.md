@@ -12,5 +12,5 @@ git clone https://github.com/whiteshark05/discord-bot-score-tracker
 
 ```
 cd discord-bot-score-tracker
-node .
+npm start
 ```
