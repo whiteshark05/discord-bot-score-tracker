@@ -12,7 +12,8 @@ const announcers = [
 
 const config = {
     guildID : '425546690532212767',
-    botPlayGroundID: '426603363199614977'
+    botPlayGroundID: '426603363199614977',
+    clanChatID: '446704817533091840'
 }
 
 
@@ -34,7 +35,7 @@ let obj = {
 
 
 bot.on('ready', () => {
-var countDownDate = new Date("Jan, 2019 02:23:40").getTime();
+var countDownDate = new Date("Dec, 2019 07:10:00").getTime();
 // Update the count down every 1 second
 var i = 0;
 var x = setInterval(function() {
@@ -57,10 +58,10 @@ var x = setInterval(function() {
     console.log( days + "d " + hours + "h " + minutes + "m " + seconds + "s ")
   
     // If the count down is finished, write some text 
-    if (seconds % 5 == 0) {
+    if (hours % 24 == 2) {
     if(i>3) i=0;
-    let msg = bot.guilds.get(config.guildID).roles.find(e => e.name === "Welcome Techies").toString()
-    bot.channels.get(config.botPlayGroundID).send(msg + "  " + announcers[i]);
+    let msg = bot.guilds.get(config.guildID).roles.find(e => e.name === "Highgarden").toString()
+    bot.channels.get(config.clanChatID).send(msg + "  " + announcers[i]);
     i+=1;    
     //bot.channels.get('426603363199614977').send(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");  
     //clearInterval(x);
@@ -73,6 +74,7 @@ bot.on('message', function(message){
     let dogeEmojiList = message.guild.emojis.filter(e => e.name.includes('doge')).map(e => e.toString())
     let random =Math.floor(Math.random() * (+max - +min)) + +min; 
 
+    
     if(message.content === 'Hello' || message.content === 'hello') message.reply('Hello, how are you?');
 
 
