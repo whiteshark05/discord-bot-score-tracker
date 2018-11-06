@@ -3,14 +3,24 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 const TOKEN = require('./exclude/auth.json').token
 const insults = require('./insults.json').insults
+const announcers = [
+    'Daily reset in 2 hours, Guild Event start in 3 hours.',
+    'Daily reset in 2 hours, remember to buy your Guild Coin energy!',
+    'Daily reset in 2 hours, remember to buy your Guild Coin energy!',
+    'Event ends in 1 hour! Last chance to spend your energy!'
+]
 
+const config = {
+    guildID : '425546690532212767',
+    botPlayGroundID: '426603363199614977'
+}
 
 
 var fs = require('fs');
 
 let min=0; 
 let max=insults.length;  
-let currentTime = new Date;
+var currentTime = new Date;
 let obj = {
     players:[
         {
@@ -18,20 +28,56 @@ let obj = {
             timeStamp:""
         }
     ]
+
 }
+
+
+
+bot.on('ready', () => {
+var countDownDate = new Date("Jan, 2019 02:23:40").getTime();
+// Update the count down every 1 second
+var i = 0;
+var x = setInterval(function() {
+    const interval = 5000;
+   
+    var countDown = countDownDate + interval;
+    // Get todays date and time
+    var now = new Date().getTime();
+  
+    // Find the distance between now and the count down date
+    var distance = countDownDate - now;
+  
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  
+    // Display the result in the element with id="demo"
+    console.log( days + "d " + hours + "h " + minutes + "m " + seconds + "s ")
+  
+    // If the count down is finished, write some text 
+    if (seconds % 5 == 0) {
+    if(i>3) i=0;
+    let msg = bot.guilds.get(config.guildID).roles.find(e => e.name === "Welcome Techies").toString()
+    bot.channels.get(config.botPlayGroundID).send(msg + "  " + announcers[i]);
+    i+=1;    
+    //bot.channels.get('426603363199614977').send(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");  
+    //clearInterval(x);
+    }
+  }, 1000);   
+})
 
 bot.on('message', function(message){
     let dogeEmojiString = message.guild.emojis.filter(e => e.name.includes('doge')).map(e => e.toString()).join(" ")
     let dogeEmojiList = message.guild.emojis.filter(e => e.name.includes('doge')).map(e => e.toString())
     let random =Math.floor(Math.random() * (+max - +min)) + +min; 
-    
 
     if(message.content === 'Hello' || message.content === 'hello') message.reply('Hello, how are you?');
 
 
 
     if(message.content === 'd!time') message.reply(currentTime.toString())
-    //console.log(message.mentions.users.map(user => user.id));
 
 
     if(message.content === 'd!insult') {
@@ -47,12 +93,9 @@ bot.on('message', function(message){
 
 
     if (message.content === "d!emo") {
-    //const emojiList = message.guild.emojis.map(e=>e.toString()).join(" ");
     message.channel.send(dogeEmojiString);}
 
     if (message.content === "d!emo2") {
-
-        //const emojiList = message.guild.emojis.map(e=>e.toString()).join(" ");
     dogeEmojiList.map(i => {message.channel.send(i)});}
 
 
@@ -62,7 +105,6 @@ bot.on('message', function(message){
             console.log(err);
         } else {
         obj = JSON.parse(data); //now it an object
-        //console.log(obj);
         obj.obj.table.map(item => {message.reply(item)});
         }}
     )}
@@ -77,7 +119,11 @@ bot.on('message', function(message){
         });
     }
 
+    
+
 })
+
+
 
 http = require('http')
 handle = (req, res) => res.end("hit")
